@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANTH 216 — Sex and Evolution | Penn State</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --oxblood:#3D0C1D; --wine:#280811; --blush:#E8C9C4;
+    --gold:#C9A24A; --gold-dim:#8C7538; --cream:#F3ECE0; --ink:#150509;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:radial-gradient(ellipse at 50% -10%, #4A1224 0%, var(--oxblood) 45%, var(--wine) 100%);
+    color:var(--cream); font-family:'Inter', sans-serif; line-height:1.6;
+    overflow-x:hidden; position:relative;
+  }
+  body::before{
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:radial-gradient(rgba(201,162,74,.10) 0.6px, transparent 0.6px);
+    background-size:26px 26px; opacity:.5;
+  }
+  nav, header, section, footer{ position:relative; z-index:1; }
+  h1,h2,h3,.serif{ font-family:'Cormorant Garamond', serif; font-weight:500; letter-spacing:.01em;}
+  .eyebrow{ font-family:'Inter', sans-serif; font-size:.72rem; letter-spacing:.22em;
+    text-transform:uppercase; color:var(--gold); font-weight:600; }
+  a{color:var(--gold);}
+  .wrap{max-width:900px; margin:0 auto; padding:0 28px;}
+
+  nav{ position:sticky; top:0; z-index:50; background:rgba(21,5,9,.72);
+    backdrop-filter:blur(8px); border-bottom:1px solid rgba(201,162,74,.25); }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; padding:14px 28px;}
+  nav .brand{font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:var(--cream); letter-spacing:.03em;}
+  nav .brand b{color:var(--gold);}
+  nav a.cta{ font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; font-weight:600;
+    border:1px solid var(--gold); color:var(--gold); padding:9px 16px; text-decoration:none; transition:.2s; }
+  nav a.cta:hover{background:var(--gold); color:var(--ink);}
+
+  .hero{ padding:90px 0 60px; text-align:center; }
+  .ornament{ width:150px; height:150px; margin:0 auto 30px; opacity:.95; }
+  .hero .eyebrow{ display:block; margin-bottom:18px; }
+  .hero h1{ font-size:clamp(3rem, 9vw, 5.6rem); line-height:.95; color:var(--cream); }
+  .hero h1 span{ display:block; color:var(--gold); font-size:.55em; letter-spacing:.04em; margin-top:6px;}
+  .hero .tag{ font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.3rem;
+    color:var(--blush); margin:26px auto 0; max-width:520px; }
+
+  .questions{ padding:20px 0 70px; text-align:center; }
+  .questions p{ font-family:'Cormorant Garamond', serif; font-size:clamp(1.35rem, 3.4vw, 1.9rem);
+    color:var(--cream); margin:16px 0; }
+  .questions p em{ color:var(--gold); font-style:italic; }
+
+  section{ padding:70px 0; border-top:1px solid rgba(201,162,74,.18); }
+  section h2{ font-size:clamp(1.8rem,4vw,2.4rem); color:var(--cream); margin-bottom:8px;}
+  section .eyebrow{ display:block; margin-bottom:14px;}
+  section .lead{ color:var(--blush); font-size:1.02rem; max-width:600px; margin-bottom:36px;}
+
+  .topics{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:1px;
+    background:rgba(201,162,74,.2); border:1px solid rgba(201,162,74,.2);}
+  .topic{ background:var(--wine); padding:26px 22px;}
+  .topic h3{ font-size:1.25rem; color:var(--gold); margin-bottom:8px; font-weight:600;}
+  .topic p{ font-size:.9rem; color:var(--cream); opacity:.85;}
+
+  /* ---------- CURIOSITY ---------- */
+  .curiosity-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:18px;}
+  details.fact{ background:linear-gradient(160deg, rgba(201,162,74,.07), rgba(201,162,74,.015));
+    border:1px solid rgba(201,162,74,.26); transition:.2s; overflow:hidden; }
+  details.fact:hover{ border-color:rgba(201,162,74,.6); }
+  details.fact[open]{ background:linear-gradient(160deg, rgba(201,162,74,.13), rgba(201,162,74,.03)); }
+  details.fact summary{ list-style:none; cursor:pointer; display:block; }
+  details.fact summary::-webkit-details-marker{ display:none; }
+  .art{ position:relative;
+    background:radial-gradient(ellipse at 50% 42%, rgba(232,201,196,.10), transparent 70%);
+    border-bottom:1px solid rgba(201,162,74,.2); padding:16px 16px 12px; }
+  .art svg{ display:block; width:100%; height:auto; max-height:190px; }
+  .art .cap{ position:absolute; bottom:7px; right:13px; font-size:.58rem; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--gold-dim); }
+  .qrow{ display:flex; align-items:flex-start; gap:12px; padding:18px 22px; }
+  details.fact .q{ font-family:'Cormorant Garamond', serif; font-size:1.3rem; color:var(--cream); line-height:1.28; }
+  .chev{ margin-left:auto; color:var(--gold); font-size:1.3rem; transition:.25s; flex:0 0 auto; line-height:1;}
+  details.fact[open] .chev{ transform:rotate(45deg); }
+  details.fact .a{ margin:0 22px 22px; padding-top:16px; border-top:1px dashed rgba(201,162,74,.3);
+    color:var(--blush); font-size:.92rem; line-height:1.65; }
+  details.fact .a b{ color:var(--gold); font-weight:600; }
+  .curiosity-note{ margin-top:30px; text-align:center; font-family:'Cormorant Garamond', serif;
+    font-style:italic; font-size:1.2rem; color:var(--blush); }
+  .curiosity-note b{ color:var(--gold); font-style:normal; font-weight:500; }
+
+  .card{ background:linear-gradient(160deg, rgba(201,162,74,.09), rgba(201,162,74,.02));
+    border:1px solid rgba(201,162,74,.35); padding:38px 34px; }
+  .card-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:26px 30px; margin-top:6px;}
+  .field .eyebrow{ margin-bottom:6px; display:block;}
+  .field .val{ font-size:1.15rem; color:var(--cream); font-weight:500;}
+  .field .sub{ font-size:.85rem; color:var(--blush); margin-top:2px;}
+
+  .faq-item{ padding:22px 0; border-bottom:1px solid rgba(201,162,74,.18);}
+  .faq-item:last-child{ border-bottom:none;}
+  .faq-item h3{ font-size:1.2rem; color:var(--cream); font-weight:600; font-family:'Inter',sans-serif; margin-bottom:8px;}
+  .faq-item p{ color:var(--blush); font-size:.95rem;}
+
+  .final{ text-align:center; padding:90px 0 100px; }
+  .final h2{ font-size:clamp(2rem,5vw,2.8rem); margin-bottom:14px;}
+  .final p{ color:var(--blush); margin-bottom:34px; max-width:520px; margin-left:auto; margin-right:auto;}
+  .btn-row{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+  .btn{ display:inline-block; padding:15px 30px; text-decoration:none; font-size:.8rem;
+    letter-spacing:.14em; text-transform:uppercase; font-weight:600; transition:.2s; }
+  .btn.primary{ background:var(--gold); color:var(--ink); border:1px solid var(--gold);}
+  .btn.primary:hover{ background:transparent; color:var(--gold);}
+  .btn.ghost{ border:1px solid rgba(201,162,74,.5); color:var(--cream);}
+  .btn.ghost:hover{ border-color:var(--gold); color:var(--gold);}
+
+  footer{ text-align:center; padding:40px 20px; color:var(--gold-dim); font-size:.78rem;
+    letter-spacing:.05em; border-top:1px solid rgba(201,162,74,.15);}
+
+  a:focus-visible, summary:focus-visible, .btn:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+
+  @media (max-width:600px){ .hero{padding:64px 0 40px;} section{padding:50px 0;} }
+  @media (prefers-reduced-motion: reduce){ .helix .strand{ animation:none !important; } }
+
+  .helix .strand{ animation:shimmer 6s ease-in-out infinite; }
+  .helix .strand.b{ animation-delay:.4s; }
+  @keyframes shimmer{ 0%,100%{ opacity:.55; } 50%{ opacity:1; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand"><b>ANTH 216</b> · Sex &amp; Evolution</div>
+    <a class="cta" href="#enroll">Enroll</a>
+  </div>
+</nav>
+
+<header class="hero wrap">
+  <span class="eyebrow">Anthropology 216 · Penn State</span>
+  <svg class="ornament helix" viewBox="0 0 160 160" fill="none">
+    <circle cx="80" cy="80" r="78" stroke="#C9A24A" stroke-opacity=".25" stroke-width="1"/>
+    <circle cx="80" cy="80" r="62" stroke="#C9A24A" stroke-opacity=".4" stroke-width="1"/>
+    <path class="strand a" d="M65 20 C95 45, 65 65, 95 90 C65 115, 95 135, 65 140" stroke="#C9A24A" stroke-width="2.2" stroke-linecap="round"/>
+    <path class="strand b" d="M95 20 C65 45, 95 65, 65 90 C95 115, 65 135, 95 140" stroke="#E8C9C4" stroke-width="2.2" stroke-linecap="round"/>
+    <g stroke="#C9A24A" stroke-opacity=".5" stroke-width="1">
+      <line x1="68" y1="34" x2="92" y2="34"/><line x1="72" y1="55" x2="88" y2="55"/>
+      <line x1="72" y1="77" x2="88" y2="77"/><line x1="72" y1="99" x2="88" y2="99"/>
+      <line x1="72" y1="121" x2="88" y2="121"/>
+    </g>
+  </svg>
+  <h1>Sex <span>and Evolution</span></h1>
+  <p class="tag">The evolutionary science of human sexuality and behavior.</p>
+</header>
+
+<div class="questions wrap">
+  <p>Why do we <em>prefer</em> the mates we do?</p>
+  <p>How <em>different</em> are men and women — and why?</p>
+  <p>What shaped human sexuality across <em>deep time</em>?</p>
+</div>
+
+<section id="about">
+  <div class="wrap">
+    <span class="eyebrow">The Course</span>
+    <h2>Think like an evolutionary scientist.</h2>
+    <p class="lead">This course builds an evolutionary model of human behavior from the ground up — starting with natural selection, then applying that logic to one of biology's most consistently interesting subjects: US. No prerequisites. Open to all Penn State students.</p>
+    <div class="topics">
+      <div class="topic"><h3>Natural &amp; Sexual Selection</h3><p>Why males and females differ — and how much, and why.</p></div>
+      <div class="topic"><h3>Mate Choice</h3><p>The logic behind human preferences and attraction.</p></div>
+      <div class="topic"><h3>Hormones &amp; the Brain</h3><p>How sexual differentiation shapes behavior.</p></div>
+      <div class="topic"><h3>Sexual Orientation</h3><p>Evolutionary hypotheses and current evidence.</p></div>
+      <div class="topic"><h3>Jealousy &amp; Mating Strategies</h3><p>Competition, commitment, and conflict between the sexes.</p></div>
+      <div class="topic"><h3>Parenting &amp; Family</h3><p>Investment, favoritism, and the evolution of care.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="curiosity">
+  <div class="wrap">
+    <span class="eyebrow">A Taste of the Course</span>
+    <h2>A few questions to get you curious.</h2>
+    <p class="lead">Tap any card to see where the science actually lands — or where it's still fiercely debated. These are just a handful of the puzzles we chase.</p>
+
+    <div class="curiosity-grid">
+
+      <!-- 1. DIGIT RATIO -->
+      <details class="fact">
+        <summary>
+          <div class="art">
+            <svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg">
+              <rect x="110" y="98" width="92" height="52" rx="16" stroke="#C9A24A" stroke-width="1.6" fill="rgba(232,201,196,0.04)"/>
+              <rect x="114" y="54" width="18" height="50" rx="9" stroke="#C9A24A" stroke-width="1.9" fill="rgba(232,201,196,0.16)"/>
+              <rect x="137" y="42" width="18" height="62" rx="9" stroke="#C9A24A" stroke-width="1.3" fill="rgba(232,201,196,0.03)"/>
+              <rect x="160" y="48" width="18" height="56" rx="9" stroke="#C9A24A" stroke-width="1.9" fill="rgba(232,201,196,0.16)"/>
+              <rect x="183" y="66" width="16" height="38" rx="8" stroke="#C9A24A" stroke-width="1.3" fill="rgba(232,201,196,0.03)"/>
+              <rect x="90" y="106" width="15" height="38" rx="7.5" transform="rotate(36 97 125)" stroke="#C9A24A" stroke-width="1.3" fill="rgba(232,201,196,0.03)"/>
+              <text x="123" y="36" fill="#C9A24A" font-family="Georgia, serif" font-size="13" font-style="italic" text-anchor="middle">2D</text>
+              <text x="169" y="36" fill="#C9A24A" font-family="Georgia, serif" font-size="13" font-style="italic" text-anchor="middle">4D</text>
+              <text x="150" y="166" fill="#F3ECE0" font-family="Georgia, serif" font-size="12.5" text-anchor="middle">index &divide; ring length</text>
+            </svg>
+          </div>
+          <div class="qrow"><span class="q">Can your hand reveal your sexual orientation?</span><span class="chev">+</span></div>
+        </summary>
+        <div class="a">The ratio between your index and ring fingers — the <b>2D:4D ratio</b> — is set in the womb and used as a rough proxy for prenatal testosterone. It's one of the field's most debated measures: linked in some studies to traits from spatial ability to athleticism, while bolder claims like sexual orientation remain hotly contested. We look at what the evidence actually supports.</div>
+      </details>
+
+      <!-- 2. SEXUAL SELECTION / STAG -->
+      <details class="fact">
+        <summary>
+          <div class="art">
+            <svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg">
+              <path d="M150 156 C131 156 125 134 127 112 C128 99 138 90 150 90 C162 90 172 99 173 112 C175 134 169 156 150 156 Z" stroke="#C9A24A" stroke-width="1.8" fill="rgba(232,201,196,0.05)"/>
+              <path d="M127 104 C114 100 106 104 101 113 C110 112 119 112 126 116" stroke="#C9A24A" stroke-width="1.4" fill="none"/>
+              <path d="M173 104 C186 100 194 104 199 113 C190 112 181 112 174 116" stroke="#C9A24A" stroke-width="1.4" fill="none"/>
+              <circle cx="140" cy="114" r="2.4" fill="#C9A24A"/><circle cx="160" cy="114" r="2.4" fill="#C9A24A"/>
+              <path d="M145 140 C145 145 155 145 155 140" stroke="#C9A24A" stroke-width="1.4" fill="none"/>
+              <g stroke="#C9A24A" stroke-width="1.9" stroke-linecap="round" fill="none">
+                <path d="M136 92 C127 72 119 58 110 42"/><path d="M123 66 C114 62 108 58 103 53"/>
+                <path d="M117 55 C109 51 103 49 97 46"/><path d="M110 42 C106 35 105 28 108 20"/>
+                <path d="M164 92 C173 72 181 58 190 42"/><path d="M177 66 C186 62 192 58 197 53"/>
+                <path d="M183 55 C191 51 197 49 203 46"/><path d="M190 42 C194 35 195 28 192 20"/>
+              </g>
+            </svg>
+          </div>
+          <div class="qrow"><span class="q">Why grow ten pounds of antler just to fight over mates? Do humans hve something like that?</span><span class="chev">+</span></div>
+        </summary>
+        <div class="a">Antlers, manes, and dazzling plumage are <b>costly signals</b> shaped by competition for mates — sexual selection, running right alongside natural selection. The same logic illuminates a surprising amount about human status displays, risk-taking, and body size. Darwin considered this some of his most provocative work.</div>
+      </details>
+
+      <!-- 3. WAIST-TO-HIP RATIO -->
+      <details class="fact">
+        <summary>
+          <div class="art">
+            <svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg">
+              <path d="M118 28 C116 42 116 62 122 88 C112 106 106 118 106 130 C106 140 108 145 114 148 L186 148 C192 145 194 140 194 130 C194 118 188 106 178 88 C184 62 184 42 182 28 C176 40 164 44 150 44 C136 44 124 40 118 28 Z" stroke="#C9A24A" stroke-width="1.8" fill="rgba(232,201,196,0.06)"/>
+              <line x1="118" y1="88" x2="182" y2="88" stroke="#E8C9C4" stroke-width="1" stroke-dasharray="3 3"/>
+              <line x1="106" y1="130" x2="194" y2="130" stroke="#E8C9C4" stroke-width="1" stroke-dasharray="3 3"/>
+              <text x="214" y="91" fill="#E8C9C4" font-family="Inter,sans-serif" font-size="10">waist</text>
+              <text x="214" y="133" fill="#E8C9C4" font-family="Inter,sans-serif" font-size="10">hip</text>
+              <text x="150" y="166" fill="#C9A24A" font-family="Georgia, serif" font-size="13" font-style="italic" text-anchor="middle">waist &divide; hip &asymp; 0.7 ?</text>
+            </svg>
+          </div>
+          <div class="qrow"><span class="q">Is there a body shape people find attractive everywhere?</span><span class="chev">+</span></div>
+        </summary>
+        <div class="a">Decades of research on <b>waist-to-hip ratio</b> found preferences clustering near a specific range across many populations — proposed as a cue to health and fertility. But cross-cultural results are genuinely mixed, and how universal this really is remains an open fight. We read the original studies and the pushback side by side.</div>
+      </details>
+
+      <!-- 4. BEARDS -->
+      <details class="fact">
+        <summary>
+          <div class="art">
+            <svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg">
+              <path d="M150 28 C124 28 112 48 112 76 C112 108 128 140 150 140 C172 140 188 108 188 76 C188 48 176 28 150 28 Z" stroke="#C9A24A" stroke-width="1.8" fill="rgba(232,201,196,0.04)"/>
+              <path d="M117 60 C123 38 139 30 150 30 C161 30 177 38 183 60 C176 51 164 47 150 47 C136 47 124 51 117 60 Z" stroke="#C9A24A" stroke-width="1.2" fill="rgba(201,162,74,0.12)"/>
+              <circle cx="136" cy="74" r="2.4" fill="#C9A24A"/><circle cx="164" cy="74" r="2.4" fill="#C9A24A"/>
+              <path d="M150 80 L150 92 C147 94 145 94 143 93" stroke="#C9A24A" stroke-width="1.2" fill="none"/>
+              <path d="M120 96 C124 124 138 142 150 142 C162 142 176 124 180 96 C172 108 160 112 150 112 C140 112 128 108 120 96 Z" stroke="#C9A24A" stroke-width="1.4" fill="rgba(232,201,196,0.13)"/>
+              <g stroke="#E8C9C4" stroke-width="0.9" opacity="0.75">
+                <line x1="132" y1="108" x2="130" y2="128"/><line x1="141" y1="112" x2="140" y2="134"/>
+                <line x1="150" y1="114" x2="150" y2="138"/><line x1="159" y1="112" x2="160" y2="134"/>
+                <line x1="168" y1="108" x2="170" y2="128"/>
+              </g>
+              <path d="M142 102 C146 105 154 105 158 102" stroke="#C9A24A" stroke-width="1.2" fill="none"/>
+            </svg>
+          </div>
+          <div class="qrow"><span class="q">Why do men grow beards at all?</span><span class="chev">+</span></div>
+        </summary>
+        <div class="a">Facial hair is a plausible <b>sexually selected ornament</b> — it enlarges the jaw and shifts perceptions of dominance and maturity. Yet whether beards actually raise attractiveness turns out to depend heavily on who you ask and how much stubble is involved. A perfect case study in how an "obvious" evolutionary story meets messy data.</div>
+      </details>
+
+      <!-- 5. ORGASM / FECUNDABILITY -->
+      <details class="fact">
+        <summary>
+          <div class="art">
+            <svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg">
+              <line x1="54" y1="18" x2="54" y2="140" stroke="#C9A24A" stroke-width="1.2"/>
+              <line x1="54" y1="140" x2="274" y2="140" stroke="#C9A24A" stroke-width="1.2"/>
+              <line x1="54" y1="74" x2="274" y2="74" stroke="#E8C9C4" stroke-width="0.9" stroke-dasharray="4 3"/>
+              <text x="48" y="77" fill="#E8C9C4" font-family="Inter,sans-serif" font-size="9" text-anchor="end">1.0</text>
+              <rect x="82" y="96" width="36" height="44" fill="#C9A24A" fill-opacity="0.80"/>
+              <rect x="136" y="60" width="36" height="80" fill="#C9A24A" fill-opacity="0.80"/>
+              <rect x="190" y="48" width="36" height="92" fill="#E8C9C4" fill-opacity="0.85"/>
+              <rect x="238" y="84" width="30" height="56" fill="#C9A24A" fill-opacity="0.50"/>
+              <text x="24" y="80" fill="#F3ECE0" font-family="Inter,sans-serif" font-size="10" transform="rotate(-90 24 80)" text-anchor="middle">fecundability</text>
+            </svg>
+            <span class="cap">Schematic</span>
+          </div>
+          <div class="qrow"><span class="q">what's the mystery behind women's orgasm? Does orgasm change the odds of conception?</span><span class="chev">+</span></div>
+        </summary>
+        <div class="a">It's a surprisingly live research question. A 2024 study in the <i>American Journal of Obstetrics &amp; Gynecology</i> examined whether orgasm relates to <b>fecundability</b> — the chance of conception in a given cycle. We walk through how researchers even design a test for something like this, and what the data currently suggest.</div>
+      </details>
+
+      <!-- 6. PARTNER AGE PREFERENCES -->
+      <details class="fact">
+        <summary>
+          <div class="art">
+            <svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg">
+              <line x1="56" y1="16" x2="56" y2="142" stroke="#C9A24A" stroke-width="1.2"/>
+              <line x1="56" y1="142" x2="276" y2="142" stroke="#C9A24A" stroke-width="1.2"/>
+              <line x1="56" y1="142" x2="236" y2="34" stroke="#E8C9C4" stroke-width="0.9" stroke-dasharray="4 3"/>
+              <text x="204" y="30" fill="#E8C9C4" font-family="Inter,sans-serif" font-size="8.5">same age</text>
+              <path d="M64 134 L112 106 L160 80 L208 56 L248 44" stroke="#E8C9C4" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+              <path d="M64 130 L112 116 L160 104 L208 96 L248 90" stroke="#C9A24A" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+              <text x="166" y="160" fill="#F3ECE0" font-family="Inter,sans-serif" font-size="9.5" text-anchor="middle">the person's own age &rarr;</text>
+              <text x="24" y="82" fill="#F3ECE0" font-family="Inter,sans-serif" font-size="9.5" transform="rotate(-90 24 82)" text-anchor="middle">preferred partner age</text>
+              <circle cx="66" cy="22" r="3" fill="#E8C9C4"/><text x="73" y="25" fill="#E8C9C4" font-family="Inter,sans-serif" font-size="9">women</text>
+              <circle cx="128" cy="22" r="3" fill="#C9A24A"/><text x="135" y="25" fill="#C9A24A" font-family="Inter,sans-serif" font-size="9">men</text>
+            </svg>
+            <span class="cap">Schematic</span>
+          </div>
+          <div class="qrow"><span class="q">Why do "ideal partner age" preferences pull apart over a lifetime?</span><span class="chev">+</span></div>
+        </summary>
+        <div class="a">Across many societies, men's preferred partner age skews progressively younger relative to their own as they age, while women's stays closer to their own. Evolutionary psychologists tie this to differences in reproductive biology — and it's one of the more consistently replicated patterns in the field, which makes it a great test case for evaluating these hypotheses.</div>
+      </details>
+
+    </div>
+    <p class="curiosity-note">…and this is barely the beginning. <b>Fifteen weeks</b> take us through jealousy, infidelity, gender, marriage, parenting, menopause, and much more.</p>
+  </div>
+</section>
+
+<section id="logistics">
+  <div class="wrap">
+    <span class="eyebrow">Logistics</span>
+    <h2>Where and when to find us.</h2>
+    <div class="card">
+      <div class="card-grid">
+        <div class="field"><span class="eyebrow">Instructor</span><div class="val">Dr. David Puts</div><div class="sub"><a href="mailto:dap27@psu.edu">dap27@psu.edu</a></div></div>
+        <div class="field"><span class="eyebrow">Lecture</span><div class="val">Wed &amp; Fri, 1:25–2:15 PM</div><div class="sub">010 Sparks Building</div></div>
+        <div class="field"><span class="eyebrow">Level</span><div class="val">Undergraduate</div><div class="sub">No prerequisites</div></div>
+        <div class="field"><span class="eyebrow">Enrollment</span><div class="val">Open to all students</div><div class="sub">Search ANTH 216 in LionPATH</div></div>
+        <div class="field"><span class="eyebrow">Weekly Discussion Section</span><div class="val">Several times offered</div><div class="sub">Pick the slot that fits your schedule</div></div>
+        <div class="field"><span class="eyebrow">Weekly Problem Set</span><div class="val">Due each week in section</div><div class="sub">Submitted on Canvas before section</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <span class="eyebrow">Good to Know</span>
+    <h2>A few things students ask.</h2>
+    <div class="faq-item"><h3>Do I need a science background?</h3><p>Not at all. The course builds every model from first principles, so students from any major can jump in and keep up. Some of the best discussions come from people bringing perspectives outside biology.</p></div>
+    <div class="faq-item"><h3>What makes this class different from a typical bio course?</h3><p>You'll apply evolutionary logic directly to human behavior — attraction, jealousy, parenting, competition — rather than memorizing taxonomy or cell diagrams. The material is immediately relevant to your own life, and lecture discussions get genuinely lively.</p></div>
+    <div class="faq-item"><h3>Is this one of those huge lectures where nobody knows your name?</h3><p>Lectures are large, but you also meet weekly in a small discussion section. That's where the real conversations happen, and where you get to know classmates well enough to form study groups.</p></div>
+    <div class="faq-item"><h3>How is the course graded?</h3><p>Section participation, weekly problem sets, lecture quizzes, and exams. The structure is straightforward and spelled out on day one.</p></div>
+    <div class="faq-item"><h3>What do past students say?</h3><p>It's consistently one of the most popular courses in the Anthropology department. Students regularly call it the class that changed how they think about themselves, relationships, and what it means to be human.</p></div>
+  </div>
+</section>
+
+<section id="enroll" class="final">
+  <div class="wrap">
+    <span class="eyebrow">Ready?</span>
+    <h2 class="serif">Join us this semester.</h2>
+    <p>ANTH 216 · Wednesdays &amp; Fridays · 1:25–2:15 PM · 010 Sparks Building</p>
+    <div class="btn-row">
+      <a class="btn primary" href="https://www.lionpath.psu.edu/" target="_blank" rel="noopener">Search LionPATH</a>
+      <a class="btn ghost" href="mailto:dap27@psu.edu">Email Dr. Puts</a>
+    </div>
+  </div>
+</section>
+
+<footer>ANTH 216 — SEX AND EVOLUTION · DEPARTMENT OF ANTHROPOLOGY · PENN STATE UNIVERSITY</footer>
+
+</body>
+</html>
